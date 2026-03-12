@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Dashboard — Smart Transport System</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+</head>
+<body class="dash-body">
+<div class="page-bg"></div>
+
+<!-- ── Nav ── -->
+<nav class="d-nav">
+  <div class="d-nav-left">
+    <a href="/" class="d-back">← Home</a>
+    <span style="color:var(--g700)">|</span>
+    <span class="d-nav-title">SMART TRANSPORT DASHBOARD</span>
+  </div>
+  <div class="d-nav-right">
+    <button class="geo-btn" id="geo-btn" onclick="toggleGeolocation()">📍 My Location</button>
+    <div class="conn-pill">
+      <div class="conn-dot"></div>
+      <span style="color:var(--green)">LIVE</span>
+    </div>
+    <div class="d-clock" id="d-clock">--:--:--</div>
+  </div>
+</nav>
+
+<!-- ── Main ── -->
+<main class="d-main">
+
+  <!-- Stats Row -->
+  <div class="stats-row">
+    <div class="stat-card"><div class="stat-lbl">Total Jeepneys</div><div class="stat-val c">3</div></div>
+    <div class="stat-card"><div class="stat-lbl">Available Units</div><div class="stat-val g" id="s-avail">—</div></div>
+    <div class="stat-card"><div class="stat-lbl">Total Passengers</div><div class="stat-val" id="s-pax">—</div></div>
+    <div class="stat-card"><div class="stat-lbl">Full Units</div><div class="stat-val r" id="s-full">—</div></div>
+  </div>
+
+  <!-- Fleet Grid -->
+  <div class="fleet-grid" id="fleet-grid"></div>
+
+  <!-- Alert -->
+  <div class="alert-wrap">
+    <div class="alert-card" id="alert-card">
+      <div class="alert-icon">🚨</div>
+      <div>
+        <div class="alert-title">JEEPNEY FULL</div>
+        <div class="alert-msg" id="alert-msg">A jeepney is FULL — Please wait for the next ride.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAP — Full width, prominent -->
+  <div class="map-section">
+    <div class="map-hdr">
+      <div class="map-hdr-left">
+        <span class="map-hdr-title">🗺️ LIVE ROUTE MAP</span>
+        <span class="map-route-tag">Market! Market! → AFPOVAI Phase 1 (7/11)</span>
+      </div>
+      <div class="map-legend">
+        <div class="leg-item"><span class="leg-dot" style="background:#00e676"></span>Available</div>
+        <div class="leg-item"><span class="leg-dot" style="background:#ffd600"></span>Almost Full</div>
+        <div class="leg-item"><span class="leg-dot" style="background:#ff1744"></span>Full</div>
+        <div class="leg-item"><span class="leg-dot" style="background:#2979ff"></span>You</div>
+      </div>
+    </div>
+    <div id="route-map"></div>
+    <!-- Position tags for each jeepney -->
+    <div class="map-jeep-status">
+      <div class="mjs-item" id="pos-jny001">🚌 JNY-001: En route…</div>
+      <div class="mjs-item" id="pos-jny002">🚌 JNY-002: En route…</div>
+      <div class="mjs-item" id="pos-jny003">🚌 JNY-003: En route…</div>
+      <div class="mjs-item" id="geo-status" style="color:var(--cyan2)">📍 Location: —</div>
+    </div>
+  </div>
+
+  <!-- Bottom Row: Controls + Log -->
+  <div class="bottom-row">
+    <div class="ctrl-card">
+      <div class="c-title">PASSENGER CONTROLS</div>
+      <p class="c-desc">Click a jeepney card to select it, then use the buttons to simulate boarding and alighting.</p>
+      <div class="ctrl-btns">
+        <button class="ctrl-btn cb-add" onclick="ctrlAdd()">＋ Board</button>
+        <button class="ctrl-btn cb-rem" onclick="ctrlRemove()">− Alight</button>
+        <button class="ctrl-btn cb-rst" onclick="ctrlReset()">↺ Reset</button>
+      </div>
+      <div class="active-lbl" id="active-lbl">Active: JNY-001</div>
+      <div class="auto-sim-wrap">
+        <label class="toggle-label">
+          <input type="checkbox" id="auto-sim" checked onchange="toggleAutoSim()"/>
+          <span class="toggle-track"></span>
+          Auto-simulate passengers
+        </label>
+      </div>
+    </div>
+    <div class="log-card">
+      <div class="c-title" style="margin-bottom:16px;">ACTIVITY LOG</div>
+      <div class="log-list" id="log-list">
+        <div class="log-item">
+          <div class="log-dot-sm cyan"></div>
+          <span class="log-time">--:--:--</span>
+          <span class="log-txt">System initialized…</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Route Info -->
+  <div class="route-card">
+    <div class="c-title">🛤️ ROUTE INFORMATION</div>
+    <div class="stops-chain">
+      <div class="stop-row"><div class="stop-circle first"></div><div class="stop-body"><div class="stop-name">Market! Market! Terminal</div><div class="stop-sub">Departure point · BGC, Taguig City</div></div></div>
+      <div class="stop-row"><div class="stop-circle"></div><div class="stop-body"><div class="stop-name">C5 Road</div><div class="stop-sub">Intermediate stop · C5, Taguig City</div></div></div>
+      <div class="stop-row"><div class="stop-circle"></div><div class="stop-body"><div class="stop-name">Gate 3</div><div class="stop-sub">Intermediate stop · AFPOVAI, Taguig City</div></div></div>
+      <div class="stop-row"><div class="stop-circle"></div><div class="stop-body"><div class="stop-name">AFPOVAI Phase 1</div><div class="stop-sub">Near-final stop · AFPOVAI, Taguig City</div></div></div>
+      <div class="stop-row"><div class="stop-circle last"></div><div class="stop-body"><div class="stop-name">7/11 Stop</div><div class="stop-sub">Final destination · AFPOVAI Phase 1, Taguig City</div></div></div>
+    </div>
+  </div>
+
+</main>
+
+<footer class="d-footer">
+  Thy Covenant Montessori School — Smart Transport System v3 · S.Y. 2025–2026 · <span id="d-date"></span>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="jeep-common.js"></script>
+<script src="dashboard.js"></script>
+</body>
+</html>

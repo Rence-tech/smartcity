@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Smart Transport System — Thy Covenant Montessori School</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+</head>
+<body class="landing">
+<div class="page-bg"></div>
+
+<!-- ── Nav ── -->
+<nav class="l-nav">
+  <div class="l-nav-brand">
+    <div class="l-nav-logo">🚌</div>
+    <div>
+      <div class="l-nav-name">SMART TRANSIT</div>
+      <div class="l-nav-school">Thy Covenant Montessori School</div>
+    </div>
+  </div>
+  <div class="live-pill"><div class="dot-pulse"></div>System Online</div>
+</nav>
+
+<!-- ── Hero ── -->
+<section class="l-hero">
+  <div class="l-hero-left">
+    <div class="l-hero-tag">🎓 Research Project · S.Y. 2025–2026</div>
+    <h1 class="l-hero-title">SMART<br>TRANSPORT<br><em>SYSTEM</em></h1>
+    <p class="l-hero-desc">
+      Real-time jeepney passenger counting and live route tracking designed
+      to prevent overcrowding and promote safer daily commutes for Senior
+      High School students at Thy Covenant Montessori School.
+    </p>
+    <div class="l-hero-meta">
+      <div class="l-meta-row">🏫 <b>Thy Covenant Montessori School</b></div>
+      <div class="l-meta-row">📅 <b>Academic Year S.Y. 2025–2026</b></div>
+      <div class="l-meta-row">🗺️ Route: <b>Market! Market! → AFPOVAI Phase 1 (7/11)</b></div>
+      <div class="l-meta-row">🚌 Fleet: <b>3 Jeepneys Monitored</b></div>
+    </div>
+    <div class="l-hero-btns">
+      <a href="/dashboard" class="btn btn-primary">🚀 Open Smart Dashboard</a>
+      <a href="#features" class="btn btn-ghost">ℹ️ Learn More</a>
+    </div>
+  </div>
+
+  <!-- Live Mini Map Preview -->
+  <div class="l-hero-visual">
+    <div class="mock-wrap">
+      <div class="mock-header">
+        <div class="mock-title">🗺️ LIVE ROUTE MAP</div>
+        <div class="mock-badge green pulse-badge">● LIVE</div>
+      </div>
+      <div id="hero-map" style="height:260px;border-radius:10px;overflow:hidden;"></div>
+      <div class="mock-route">Market! Market! → AFPOVAI Phase 1 (7/11)</div>
+      <div class="mock-fleet-mini">
+        <div class="mfm-item">
+          <span class="mfm-dot green"></span>
+          <span>JNY-001</span>
+          <span class="mfm-pax" id="m1pax">4/20</span>
+        </div>
+        <div class="mfm-item">
+          <span class="mfm-dot yellow"></span>
+          <span>JNY-002</span>
+          <span class="mfm-pax" id="m2pax">14/20</span>
+        </div>
+        <div class="mfm-item">
+          <span class="mfm-dot red"></span>
+          <span>JNY-003</span>
+          <span class="mfm-pax" id="m3pax">19/20</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Route strip ── -->
+<div class="route-strip">
+  <div class="route-inner">
+    <div class="r-stop"><div class="r-dot start"></div><div class="r-name">Market! Market!<br>Terminal</div></div>
+    <div class="r-line"></div>
+    <div class="r-stop"><div class="r-dot"></div><div class="r-name">C5 Road</div></div>
+    <div class="r-line"></div>
+    <div class="r-stop"><div class="r-dot"></div><div class="r-name">Gate 3</div></div>
+    <div class="r-line"></div>
+    <div class="r-stop"><div class="r-dot"></div><div class="r-name">AFPOVAI<br>Phase 1</div></div>
+    <div class="r-line"></div>
+    <div class="r-stop"><div class="r-dot end"></div><div class="r-name">7/11 Stop</div></div>
+  </div>
+</div>
+
+<!-- ── Features ── -->
+<section class="l-features" id="features">
+  <div class="sec-title">SYSTEM FEATURES</div>
+  <p class="sec-sub">Everything needed to monitor jeepney capacity safely and in real time</p>
+  <div class="feat-grid">
+    <div class="feat-card"><div class="feat-icon">🚌</div><div class="feat-title">3 Live Animated Jeepneys</div><p class="feat-desc">All three jeepneys move simultaneously on the map at different route positions with smooth rotation and real-time direction facing.</p></div>
+    <div class="feat-card"><div class="feat-icon">📍</div><div class="feat-title">Your GPS Location</div><p class="feat-desc">Geolocation API shows your exact position on the map as a blue pulsing dot. See how far you are from the next jeepney stop.</p></div>
+    <div class="feat-card"><div class="feat-icon">🚦</div><div class="feat-title">3-Tier Capacity Indicators</div><p class="feat-desc">Green (Available 0–14), Yellow (Almost Full 15–19), Red (Full 20) — with animated progress bars and map popups.</p></div>
+    <div class="feat-card"><div class="feat-icon">🗺️</div><div class="feat-title">Leaflet + OpenStreetMap</div><p class="feat-desc">Interactive map with stop markers, route polyline, and clickable jeepney icons. Zero paid API — 100% free.</p></div>
+    <div class="feat-card"><div class="feat-icon">🔔</div><div class="feat-title">Safety Alert System</div><p class="feat-desc">Red warning banner triggers when any jeepney reaches full capacity of 20 passengers.</p></div>
+    <div class="feat-card"><div class="feat-icon">☁️</div><div class="feat-title">Vercel Deployment</div><p class="feat-desc">Fully static app — no backend required. Deploy instantly to Vercel for free with zero configuration needed.</p></div>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<section class="l-cta">
+  <h2>READY TO MONITOR?</h2>
+  <p>Open the live dashboard to track all 3 jeepneys and see your location on the route.</p>
+  <a href="/dashboard" class="btn btn-primary" style="font-size:15px;padding:15px 34px;">🚀 Launch Dashboard</a>
+</section>
+
+<!-- ── Footer ── -->
+<footer class="l-footer">
+  <b>Smart Transportation System v3</b> — Research Project<br>
+  Thy Covenant Montessori School · Senior High School Department · S.Y. 2025–2026<br>
+  <span style="font-size:10px;">Route: Market! Market! Terminal → C5 Road → Gate 3 → AFPOVAI Phase 1 → 7/11 Stop</span>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="jeep-common.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
